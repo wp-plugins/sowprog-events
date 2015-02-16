@@ -5,10 +5,10 @@ require_once (dirname( __FILE__ ) . '/sowprog_events_configuration.php');
 class SowprogEventsOutput {
 	function output_main_page() {
 		$sowprogEventsConfiguration = new SowprogEventsConfiguration();
-		
+
 		$account_type = $sowprogEventsConfiguration->getUserType();
 		$account_id = $sowprogEventsConfiguration->getUserID();
-		
+
 		if (empty($account_type) || empty($account_id)) {
 			return '';
 		}
@@ -16,46 +16,48 @@ class SowprogEventsOutput {
 		wp_enqueue_script('pickadate-picker', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/picker.js' , __FILE__ ), array( 'jquery'), false, true);
 		wp_enqueue_script('pickadate-picker.date', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/picker.date.js' , __FILE__ ), array( 'jquery'), false, true);
 		wp_enqueue_script('pickadate-picker.time', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/picker.time.js' , __FILE__ ), array( 'jquery'), false, true);
-		wp_enqueue_script('pickadate-french', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/translations/fr_FR.js' , __FILE__ ), array( 'jquery'), false, true);		
+		wp_enqueue_script('pickadate-french', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/translations/fr_FR.js' , __FILE__ ), array( 'jquery'), false, true);
 		wp_enqueue_script('pickadate-legacy', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/legacy.js' , __FILE__ ), array( 'jquery'), false, true);
-		
+
 		wp_enqueue_style('pickadate-classic', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/themes/classic.css' , __FILE__ ));
 		wp_enqueue_style('pickadate-classic.date', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/themes/classic.date.css' , __FILE__ ));
-		
+
 		if (!empty($_GET['swc_location']) || !empty($_GET['swc_event'])) {
 			wp_enqueue_script('google-maps', 'https://maps.googleapis.com/maps/api/js?sensor=false');
 		}
 		wp_enqueue_style('font-awesome', plugins_url( '/includes/css/font-awesome.min.css' , __FILE__ ));
 		wp_enqueue_style('sowprog-events-style', plugins_url( '/includes/css/sowprog_basic_widget.css' , __FILE__ ));
-		
+
 		ob_start();
 
 		?>
-		
+
 		<form action="<?php echo $sowprogEventsConfiguration->getAgendaPageFullURL(); ?>" method="get">
 			<input size="10" type="text" id="swc_date" name="swc_date" value="<?php if (!empty($_GET['swc_date'])) { echo date("d/m/Y", strtotime($_GET['swc_date'])); } ?>" readonly="true" placeholder="A partir du">
 			<script type="text/javascript">
-				jQuery(document).ready(function() {
-				    jQuery('#swc_date').pickadate({
-						format: 'dd/mm/yyyy',    
-				    	formatSubmit: 'yyyy-mm-dd',
-				    	hiddenName: true
-				    });
-				});
-			</script>
+						jQuery(document).ready(function() {
+						    jQuery('#swc_date').pickadate({
+								format: 'dd/mm/yyyy',    
+						    	formatSubmit: 'yyyy-mm-dd',
+						    	hiddenName: true
+						    });
+						});
+					</script>
 			<input type="text" id="swc_query" name="swc_query" value="<?php echo $_GET['swc_query']; ?>" placeholder="Recherche">
-			<button type="submit"><i class="fa fa-search"></i></button>
+			<button type="submit">
+				<i class="fa fa-search"></i>
+			</button>
 		</form>
-		<br/>
+		<br />
 		<?php
-
+		
 		$widget_base_url = $sowprogEventsConfiguration->getSowprogAPIBaseURL() . '/v1';
 		$widget_type='oembed';
 		$widget_template='basic';
 		$widget_id='swc_main';
-
+		
 		$agenda_base_url = $sowprogEventsConfiguration->getAgendaPageFullURL();
-
+		
 		$swc_event = $_GET['swc_event'];
 		$swc_location = $_GET['swc_location'];
 		$swc_search_by_event_type = $_GET['swc_search_by_event_type'];
@@ -64,11 +66,11 @@ class SowprogEventsOutput {
 		$swc_date = $_GET['swc_date'];
 		$swc_query = $_GET['swc_query'];
 		$count = '20';
-
+		
 		global $swc_data;
-
+		
 		$widget_url = $widget_base_url.'/'.$account_type.'/'.$account_id.'/widget/'.$widget_type .'/'.$widget_template;
-
+		
 		if($swc_event) {
 			$params = http_build_query(array(
 					'base_agenda_url' => $agenda_base_url,
@@ -110,24 +112,41 @@ class SowprogEventsOutput {
 		}
 
 		if($swc_data[html]) {
-			?>
-
-<?php 	
-echo $swc_data[html];
+			echo $swc_data[html];
 		}
 		return ob_get_clean();
 	}
 
+	function output_widget_javascript($count) {
+		wp_enqueue_style('font-awesome', plugins_url( '/includes/css/font-awesome.min.css' , __FILE__ ));
+		wp_enqueue_style('sowprog-events-style', plugins_url( '/includes/css/sowprog_basic_widget.css' , __FILE__ ));
+
+		wp_enqueue_script('sowprog_events_widget', plugins_url( '/includes/js/sowprog_events_widget.js' , __FILE__ ), array( 'jquery'), false, true);
+		$sowprogEventsConfiguration = new SowprogEventsConfiguration();
+		wp_localize_script(
+			'sowprog_events_widget', 
+			'sowprog_events_widget_parameters', 
+			array(
+				'count' => $count,
+				'agendaPageFullURL' => $sowprogEventsConfiguration->getAgendaPageFullURL(),
+				'sowprogAPIBaseURL' => $sowprogEventsConfiguration->getSowprogAPIBaseURL(),
+				'userID' => $sowprogEventsConfiguration->getUserID(),
+				'userType' => $sowprogEventsConfiguration->getUserType()
+			) 
+		);
+		echo '<div id="swc_events_small_div"></div>';
+	}
+
 	function output_widget($count) {
-		$sowprogEventsConfiguration = new SowprogEventsConfiguration();	
+		$sowprogEventsConfiguration = new SowprogEventsConfiguration();
 			
 		$account_type = $sowprogEventsConfiguration->getUserType();
 		$account_id = $sowprogEventsConfiguration->getUserID();
-		
+
 		if (empty($account_type) || empty($account_id)) {
 			return '';
 		}
-		
+
 		wp_enqueue_style('font-awesome', plugins_url( '/includes/css/font-awesome.min.css' , __FILE__ ));
 		wp_enqueue_style('sowprog-events-style', plugins_url( '/includes/css/sowprog_basic_widget.css' , __FILE__ ));
 

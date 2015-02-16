@@ -31,9 +31,13 @@ class SowprogEventsWidget extends WP_Widget {
 		if ( ! empty( $instance['sowprog_widget_title'] ) ) {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['sowprog_widget_title'] ). $args['after_title'];
 		}
-
-		echo $sowprogEventsOutput->output_widget($instance['sowprog_widget_events_count']);
-
+		
+		if ($instance['sowprog_widget_use_javascript']) {
+			echo $sowprogEventsOutput->output_widget_javascript($instance['sowprog_widget_events_count']);
+		} else {
+			echo $sowprogEventsOutput->output_widget($instance['sowprog_widget_events_count']);
+		}
+		
 		$sowprogEventsConfiguration = new SowprogEventsConfiguration();
 		echo '<a href="' . $sowprogEventsConfiguration->getAgendaPageFullURL() . '">'. $instance['sowprog_widget_more_events_text'] .'</a>';
 		
@@ -71,6 +75,10 @@ class SowprogEventsWidget extends WP_Widget {
 	</label>
 	<input class="widefat" id="<?php echo $this->get_field_id( 'sowprog_widget_more_events_text' ); ?>" name="<?php echo $this->get_field_name( 'sowprog_widget_more_events_text' ); ?>" type="text" value="<?php echo esc_attr( $sowprog_widget_more_events_text ); ?>">
 </p>
+<p>
+    <input class="checkbox" type="checkbox" <?php checked($instance['sowprog_widget_use_javascript'], 'on'); ?> id="<?php echo $this->get_field_id('sowprog_widget_use_javascript'); ?>" name="<?php echo $this->get_field_name('sowprog_widget_use_javascript'); ?>" /> 
+    <label for="<?php echo $this->get_field_id('sowprog_widget_use_javascript'); ?>">Utiliser la version javascript</label>
+</p>
 <?php 
 	}
 
@@ -89,6 +97,7 @@ class SowprogEventsWidget extends WP_Widget {
 		$instance['sowprog_widget_title'] = ( ! empty( $new_instance['sowprog_widget_title'] ) ) ? strip_tags( $new_instance['sowprog_widget_title'] ) : 'Prochains événements';
 		$instance['sowprog_widget_events_count'] = ( ! empty( $new_instance['sowprog_widget_events_count'] ) ) ? strip_tags( $new_instance['sowprog_widget_events_count'] ) : '5';
 		$instance['sowprog_widget_more_events_text'] = ( ! empty( $new_instance['sowprog_widget_more_events_text'] ) ) ? strip_tags( $new_instance['sowprog_widget_more_events_text'] ) : 'Tous les événements';
+		$instance['sowprog_widget_use_javascript'] = $new_instance['sowprog_widget_use_javascript'];
 		return $instance;
 	}
 }
