@@ -31,7 +31,7 @@ class SowprogEventsConfiguration {
 	}
 	
 	function getAgendaPageFullURL() {
-		return get_home_url().'/'.$this->getAgendaPage();
+		return get_home_url().'/'.$this->getAgendaPage().'/';
 	}
 
 	function setAgendaPage($agendaPage) {
@@ -50,7 +50,7 @@ class SowprogEventsConfiguration {
 	}
 	
 	function getCurrentURLNoParameters() {
-		return trim(strtok($this->getCurrentURL(), '?'), '/');
+		return strtok($this->getCurrentURL(), '?');
 	}
 	
 
