@@ -92,7 +92,7 @@ function sowprog_create_virtual()
 	$agenda_base_url = $sowprogEventsConfiguration->getAgendaPageFullURL();
 	$current_url = $sowprogEventsConfiguration->getCurrentURLNoParameters();
 	
-	if ($current_url == $agenda_base_url) {
+	if (trim($current_url, '/') == trim($agenda_base_url, '/')) {
 		if ( ! defined( 'DONOTCACHEPAGE' ) )
 			define( "DONOTCACHEPAGE", true );
 
@@ -128,7 +128,7 @@ function sowprog_the_title( $title ) {
 	$agenda_base_url = $sowprogEventsConfiguration->getAgendaPageFullURL();
 	$current_url = $sowprogEventsConfiguration->getCurrentURLNoParameters();
 		
-	if ($current_url == $agenda_base_url) {
+	if (trim($current_url, '/') == trim($agenda_base_url, '/')) {
 		global $swc_data;
 		if($swc_data[title]) {
 			$title = $swc_data[title] . ' | ' . $title;
