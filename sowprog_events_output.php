@@ -18,6 +18,7 @@ class SowprogEventsOutput {
 		wp_enqueue_script('pickadate-picker.time', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/picker.time.js' , __FILE__ ), array( 'jquery'), false, true);
 		wp_enqueue_script('pickadate-french', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/translations/fr_FR.js' , __FILE__ ), array( 'jquery'), false, true);
 		wp_enqueue_script('pickadate-legacy', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/legacy.js' , __FILE__ ), array( 'jquery'), false, true);
+		wp_enqueue_script('sowprog_events', plugins_url( '/includes/js/sowprog_events.js' , __FILE__ ), array( 'jquery'), false, true);
 
 		wp_enqueue_style('pickadate-classic', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/themes/classic.css' , __FILE__ ));
 		wp_enqueue_style('pickadate-classic.date', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/themes/classic.date.css' , __FILE__ ));
@@ -34,15 +35,6 @@ class SowprogEventsOutput {
 
 		<form action="<?php echo $sowprogEventsConfiguration->getAgendaPageFullURL(); ?>" method="get">
 			<input size="10" type="text" id="swc_date" name="swc_date" value="<?php if (!empty($_GET['swc_date'])) { echo date("d/m/Y", strtotime($_GET['swc_date'])); } ?>" readonly="true" placeholder="A partir du">
-			<script type="text/javascript">
-						jQuery(document).ready(function() {
-						    jQuery('#swc_date').pickadate({
-								format: 'dd/mm/yyyy',    
-						    	formatSubmit: 'yyyy-mm-dd',
-						    	hiddenName: true
-						    });
-						});
-					</script>
 			<input type="text" id="swc_query" name="swc_query" value="<?php echo $_GET['swc_query']; ?>" placeholder="Recherche">
 			<button type="submit">
 				<i class="fa fa-search"></i>
