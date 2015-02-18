@@ -71,9 +71,7 @@ if (!class_exists('SowprogEventsVirtualPage'))
 				$posts = array($post);
 
 				// reset wp_query properties to simulate a found page
-				$wp_query->is_single = FALSE;
 				$wp_query->is_page = TRUE;
-				$wp_query->is_singular = FALSE;
 				$wp_query->is_home = FALSE;
 				$wp_query->is_archive = FALSE;
 				$wp_query->is_category = FALSE;
