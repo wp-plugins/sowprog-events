@@ -1,3 +1,4 @@
+
 /** Event */
 .event-wrapper {
 	
@@ -15,9 +16,12 @@
 	text-decoration: none;
 }
 
-.event-header a:active,a:hover {
+.event-header a:active {
 	text-decoration: none;
 }
+.event-header a:hover {
+	text-decoration: none;
+} 
 
 .event-small-wrapper .event-image {
 	float: right;
