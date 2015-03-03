@@ -3,7 +3,7 @@
 * Plugin Name: SOWPROG Events
 * Plugin URI: http://www.sowprog.com
 * Description: Display sowprog events
-* Version: 0.1
+* Version: 0.2
 * Author: A31V
 * Author URI: http://www.a31v.com
 * License: GPL2
