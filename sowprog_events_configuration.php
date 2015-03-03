@@ -26,6 +26,23 @@ class SowprogEventsConfiguration {
 		update_option('sowprog_user_email', $userEMail);
 	}
 
+	function getCodeBefore() {
+		return stripcslashes(get_option('sowprog_code_before'));
+	}
+	
+	function setCodeBefore($codeBefore) {
+		update_option('sowprog_code_before', $codeBefore);
+	}
+	
+	function getCodeAfter() {
+		return stripcslashes(get_option('sowprog_code_after'));
+	}
+	
+	function setCodeAfter($codeAfter) {
+		update_option('sowprog_code_after', $codeAfter);
+	}
+	
+	
 	function getAgendaPage() {
 		return get_option('sowprog_agenda_page');
 	}
@@ -54,8 +71,12 @@ class SowprogEventsConfiguration {
 	}
 	
 
-	function initialize($userEMail, $agendaPage) {
+	function initialize($userEMail, $agendaPage, $codeBefore, $codeAfter) {
 		$this->setUserEmail($userEMail);
+		$this->setAgendaPage($agendaPage);
+		$this->setCodeBefore($codeBefore);
+		$this->setCodeAfter($codeAfter);
+		
 		$url = $this->getSowprogAPIBaseURL() . '/rest/v1/user/account?user_email=' . $userEMail;
 		$headers = array(
 				'Accept' => 'application/json',
@@ -107,13 +128,12 @@ class SowprogEventsConfiguration {
 			$this->setUserID($data->user->sowprogId->id);
 		}
 
-		$this->setAgendaPage($agendaPage);
 	}
 
 	function form() {
 
 		if ('POST' == $_SERVER['REQUEST_METHOD']) {
-			$this->initialize($_POST['sowprog_user_email'], $_POST['sowprog_agenda_page']);
+			$this->initialize($_POST['sowprog_user_email'], $_POST['sowprog_agenda_page'], $_POST['sowprog_code_before'], $_POST['sowprog_code_after']);
 		}
 		?>
 <div class="wrap">
@@ -129,6 +149,20 @@ class SowprogEventsConfiguration {
 				<label for="sowprog_agenda_page">Page agenda</label>
 				<br>
 				<input name="sowprog_agenda_page" id="sowprog_agenda_page" value="<?php echo $this->getAgendaPage() ?>" />
+			</p>
+			<p>
+				<label for="sowprog_code_before">HTML / CSS / JS à placer avant</label>
+				<br>
+				<textarea rows="10" cols="50" name="sowprog_code_before" id="sowprog_code_before">
+					<?php echo $this->getCodeBefore() ?>
+				</textarea>
+			</p>
+			<p>
+				<label for="sowprog_code_after">HTML / CSS / JS à placer après</label>
+				<br>
+				<textarea rows="10" cols="50" name=sowprog_code_after id="sowprog_code_after">
+					<?php echo $this->getCodeAfter() ?>
+				</textarea>
 			</p>
 		</fieldset>
 		<p class="submit">

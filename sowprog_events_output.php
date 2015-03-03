@@ -12,6 +12,9 @@ class SowprogEventsOutput {
 		if (empty($account_type) || empty($account_id)) {
 			return '';
 		}
+		
+		$parts = parse_url($sowprogEventsConfiguration->getCurrentURL());
+		parse_str($parts['query'], $query);
 
 		wp_enqueue_script('pickadate-picker', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/picker.js' , __FILE__ ), array( 'jquery'), false, true);
 		wp_enqueue_script('pickadate-picker.date', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/picker.date.js' , __FILE__ ), array( 'jquery'), false, true);
@@ -23,19 +26,21 @@ class SowprogEventsOutput {
 		wp_enqueue_style('pickadate-classic', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/themes/classic.css' , __FILE__ ));
 		wp_enqueue_style('pickadate-classic.date', plugins_url( '/includes/js/pickadate.js-3.5.5/lib/themes/classic.date.css' , __FILE__ ));
 
-		if (!empty($_GET['swc_location']) || !empty($_GET['swc_event'])) {
+		if (!empty($query['swc_location']) || !empty($query['swc_event'])) {
 			wp_enqueue_script('google-maps', 'https://maps.googleapis.com/maps/api/js?sensor=false');
 		}
 		wp_enqueue_style('font-awesome', plugins_url( '/includes/css/font-awesome.min.css' , __FILE__ ));
 		wp_enqueue_style('sowprog-events-style', plugins_url( '/includes/css/sowprog_basic_widget.css' , __FILE__ ));
 
 		ob_start();
+		
+		echo $sowprogEventsConfiguration->getCodeBefore();
 
 		?>
 
 		<form action="<?php echo $sowprogEventsConfiguration->getAgendaPageFullURL(); ?>" method="get">
-			<input size="10" type="text" id="swc_date" name="swc_date" value="<?php if (!empty($_GET['swc_date'])) { echo date("d/m/Y", strtotime($_GET['swc_date'])); } ?>" readonly="true" placeholder="A partir du">
-			<input type="text" id="swc_query" name="swc_query" value="<?php echo $_GET['swc_query']; ?>" placeholder="Recherche">
+			<input size="10" type="text" id="swc_date" name="swc_date" value="<?php if (!empty($query['swc_date'])) { echo date("d/m/Y", strtotime($query['swc_date'])); } ?>" readonly="true" placeholder="A partir du">
+			<input type="text" id="swc_query" name="swc_query" value="<?php echo $query['swc_query']; ?>" placeholder="Recherche">
 			<button type="submit">
 				<i class="fa fa-search"></i>
 			</button>
@@ -50,13 +55,13 @@ class SowprogEventsOutput {
 		
 		$agenda_base_url = $sowprogEventsConfiguration->getAgendaPageFullURL();
 		
-		$swc_event = $_GET['swc_event'];
-		$swc_location = $_GET['swc_location'];
-		$swc_search_by_event_type = $_GET['swc_search_by_event_type'];
-		$swc_search_by_event_style = $_GET['swc_search_by_event_style'];
-		$swc_start_page = $_GET['swc_start_page'];
-		$swc_date = $_GET['swc_date'];
-		$swc_query = $_GET['swc_query'];
+		$swc_event = $query['swc_event'];
+		$swc_location = $query['swc_location'];
+		$swc_search_by_event_type = $query['swc_search_by_event_type'];
+		$swc_search_by_event_style = $query['swc_search_by_event_style'];
+		$swc_start_page = $query['swc_start_page'];
+		$swc_date = $query['swc_date'];
+		$swc_query = $query['swc_query'];
 		$count = '20';
 		
 		global $swc_data;
@@ -106,6 +111,9 @@ class SowprogEventsOutput {
 		if($swc_data[html]) {
 			echo $swc_data[html];
 		}
+		
+		echo $sowprogEventsConfiguration->getCodeAfter();
+		
 		return ob_get_clean();
 	}
 
