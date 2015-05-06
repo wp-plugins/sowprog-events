@@ -1,0 +1,550 @@
+
+/** Event */
+.event-wrapper {
+	
+}
+
+.event-header {
+	
+}
+
+.event-header a:link {
+	text-decoration: none;
+}
+
+.event-header a:visited {
+	text-decoration: none;
+}
+
+.event-header a:active {
+	text-decoration: none;
+}
+.event-header a:hover {
+	text-decoration: none;
+} 
+
+.event-small-wrapper .event-image {
+	float: right;
+	margin-left: 5px;
+	position: relative;
+	min-height: 120px;
+	width: 50px;
+}
+
+.event-image {
+	float: left;
+	margin-right: 10px;
+	position: relative;
+	min-height: 150px;
+	width: 200px;
+}
+
+.event-image a img {
+	max-width: 100%;
+}
+
+.image-credit {
+	color: #FFF;
+	font-size: 12px;
+	position: absolute;
+	bottom: 0px;
+	left: 5px;
+	width: 100%;
+}
+
+.event-summary {
+	
+}
+
+.event-clear {
+	clear: both;
+}
+
+.event-title {
+	font-weight: bold;
+	font-size: 120%;
+}
+
+.event-small-wrapper .event-title {
+	font-weight: bold;
+	font-size: 100%;
+}
+
+.event-list-wrapper .event-title {
+	font-weight: bold;
+	font-size: 100%;
+}
+
+.event-location {
+	font-weight: bold;
+}
+
+.event-location a span:before {
+	font-family: FontAwesome;
+	content: "\f041";
+	padding-right: 0.2em;
+}
+
+.event-artists ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.event-artists ul li {
+	display: inline;
+}
+
+.event-artists ul li:before {
+	content: "|";
+}
+
+.event-artists ul li.first:before {
+	content: none;
+	padding: 0;
+}
+
+.event-categories ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.event-categories ul li {
+	display: inline;
+}
+
+.event-categories ul li:before {
+	content: "|";
+}
+
+.event-categories ul li.first:before {
+	content: none;
+	padding: 0;
+}
+
+.event-cancelled {
+	
+}
+
+.event-date {
+	
+}
+
+.event-summary .event-date span:before {
+	font-family: FontAwesome;
+	content: "\f073";
+	padding-right: 0.2em;
+}
+
+.event-dates .event-date .soldOut {
+	
+}
+
+.event-prices ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.event-prices ul li {
+	display: inline;
+}
+
+.event-prices ul li:before {
+	content: "|";
+}
+
+.event-prices ul li.first:before {
+	content: none;
+	padding: 0;
+}
+
+.event-wrapper-details {
+	
+}
+
+.event-details {
+	
+}
+
+.event-punchline {
+	font-weight: bold;
+}
+
+.event-description {
+	
+}
+
+.event-cancellation-reason {
+	
+}
+
+.event-social {
+	
+}
+
+.event-social ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.event-social ul li {
+	display: inline;
+}
+
+.event-social ul li:before {
+	content: none;
+}
+
+.event-social ul li.first:before {
+	content: none;
+	padding: 0;
+}
+
+.event-social-Facebook span {
+	display: none;
+}
+
+.event-social-Facebook:before {
+	font-family: FontAwesome;
+	content: "\f082";
+}
+
+.event-social-DailyMotion span {
+	display: none;
+}
+
+.event-social-DailyMotion:before {
+	font-family: FontAwesome;
+	content: "\f01d";
+}
+
+.event-social-Gplus span {
+	display: none;
+}
+
+.event-social-Gplus:before {
+	font-family: FontAwesome;
+	content: "\f0d4";
+}
+
+.event-social-MySpace span {
+	display: none;
+}
+
+.event-social-MySpace:before {
+	font-family: FontAwesome;
+	content: "\f0c0";
+}
+
+.event-social-SoundCloud span {
+	display: none;
+}
+
+.event-social-SoundCloud:before {
+	font-family: FontAwesome;
+	content: "\f0c2";
+}
+
+.event-social-Twitter span {
+	display: none;
+}
+
+.event-social-Twitter:before {
+	font-family: FontAwesome;
+	content: "\f081";
+}
+
+.event-social-Web span {
+	display: none;
+}
+
+.event-social-Web:before {
+	font-family: FontAwesome;
+	content: "\f05a";
+}
+
+.event-social-Whyd span {
+	display: none;
+}
+
+.event-social-Whyd:before {
+	font-family: FontAwesome;
+	content: "\f001";
+}
+
+.event-social-YouTube span {
+	display: none;
+}
+
+.event-social-YouTube:before {
+	font-family: FontAwesome;
+	content: "\f166";
+}
+
+.event-detail-prices {
+	
+}
+
+.event-detail-prices ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.event-detail-prices ul li {
+	
+}
+
+.event-detail-prices ul li:before {
+	content: none;
+}
+
+.event-detail-prices ul li.first:before {
+	content: none;
+	padding: 0;
+}
+
+.event-detail-ticket-stores {
+	
+}
+
+.event-detail-ticket-stores ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.event-detail-ticket-stores ul li {
+	
+}
+
+.event-detail-ticket-stores ul li:before {
+	content: none;
+}
+
+.event-detail-ticket-stores ul li.first:before {
+	content: none;
+	padding: 0;
+}
+
+/** Location */
+.location-wrapper {
+	
+}
+
+.location-header {
+	
+}
+
+.location-header a:link {
+	text-decoration: none;
+}
+
+.location-header a:visited {
+	text-decoration: none;
+}
+
+.location-header a:active,a:hover {
+	text-decoration: none;
+}
+
+.location-image {
+	float: left;
+	margin-right: 10px;
+	position: relative;
+	min-height: 150px;
+	width: 200px;
+}
+
+.location-image a img {
+	max-width: 100%;
+}
+
+.location-summary {
+	
+}
+
+.location-name {
+	font-weight: bold;
+	font-size: 120%;
+}
+
+.location-address {
+	
+}
+
+.location-contact {
+	
+}
+
+.location-geo {
+	
+}
+
+.location-wrapper #map-canvas {
+	width: 100%;
+	height: 250px
+}
+
+.location-wrapper-details #map-canvas {
+	width: 100%;
+	height: 250px
+}
+
+.location-wrapper-details {
+	
+}
+
+.location-details {
+	
+}
+
+.location-description {
+	
+}
+
+.location-social {
+	
+}
+
+.location-social ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.location-social ul li {
+	display: inline;
+}
+
+.location-social ul li:before {
+	content: none;
+}
+
+.location-social ul li.first:before {
+	content: none;
+	padding: 0;
+}
+
+.location-social-Facebook span {
+	display: none;
+}
+
+.location-social-Facebook:before {
+	font-family: FontAwesome;
+	content: "\f082";
+}
+
+.location-social-DailyMotion span {
+	display: none;
+}
+
+.location-social-DailyMotion:before {
+	font-family: FontAwesome;
+	content: "\f01d";
+}
+
+.location-social-Gplus span {
+	display: none;
+}
+
+.location-social-Gplus:before {
+	font-family: FontAwesome;
+	content: "\f0d4";
+}
+
+.location-social-MySpace span {
+	display: none;
+}
+
+.location-social-MySpace:before {
+	font-family: FontAwesome;
+	content: "\f0c0";
+}
+
+.location-social-SoundCloud span {
+	display: none;
+}
+
+.location-social-SoundCloud:before {
+	font-family: FontAwesome;
+	content: "\f0c2";
+}
+
+.location-social-Twitter span {
+	display: none;
+}
+
+.location-social-Twitter:before {
+	font-family: FontAwesome;
+	content: "\f081";
+}
+
+.location-social-Web span {
+	display: none;
+}
+
+.location-social-Web:before {
+	font-family: FontAwesome;
+	content: "\f05a";
+}
+
+.location-social-Whyd span {
+	display: none;
+}
+
+.location-social-Whyd:before {
+	font-family: FontAwesome;
+	content: "\f001";
+}
+
+.location-social-YouTube span {
+	display: none;
+}
+
+.location-social-YouTube:before {
+	font-family: FontAwesome;
+	content: "\f166";
+}
+
+/** Pagination */
+.event-pagination a:link {
+	text-decoration: none;
+}
+
+.event-pagination a:visited {
+	text-decoration: none;
+}
+
+.event-pagination a:active,a:hover {
+	text-decoration: none;
+}
+
+.event-pagination ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.event-pagination ul li {
+	display: inline;
+}
+
+.event-pagination ul li:before {
+	content: "|";
+	font-weight: normal;
+	margin-right: 3px;
+}
+
+.event-pagination ul li.first:before {
+	content: none;
+	padding: 0;
+}
+
+.event-pagination ul li.active {
+	display: inline;
+	font-weight: bold;
+}
