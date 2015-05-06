@@ -44,7 +44,7 @@ class SowprogEventsOutput {
 			<input size="10" type="text" id="swc_date" name="swc_date" value="<?php if (!empty($query['swc_date'])) { echo date("d/m/Y", strtotime($query['swc_date'])); } ?>" readonly="true" placeholder="A partir du">
 			<input type="text" id="swc_query" name="swc_query" value="<?php echo $query['swc_query']; ?>" placeholder="Recherche">
 			<button type="submit">
-				<i class="fa fa-search"></i>
+				<i class="fa fa-search icon-search"></i>
 			</button>
 		</form>
 		<br />
