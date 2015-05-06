@@ -11,7 +11,6 @@ if (!class_exists('SowprogEventsVirtualPage'))
 		private $content = NULL;
 		private $author = NULL;
 		private $date = NULL;
-		private $type = NULL;
 
 		public function __construct($args)
 		{
@@ -24,7 +23,6 @@ if (!class_exists('SowprogEventsVirtualPage'))
 			$this->author = isset($args['author']) ? $args['author'] : 1;
 			$this->date = isset($args['date']) ? $args['date'] : current_time('mysql');
 			$this->dategmt = isset($args['date']) ? $args['date'] : current_time('mysql', 1);
-			$this->type = isset($args['type']) ? $args['type'] : 'page';
 
 			add_filter('the_posts', array(&$this, 'virtualPage'));
 		}
@@ -62,7 +60,6 @@ if (!class_exists('SowprogEventsVirtualPage'))
 				$post->post_parent = 0;
 				$post->guid = $sowprogEventsConfiguration->getCurrentURL();
 				$post->menu_order = 0;
-				$post->post_type = $this->type;
 				$post->post_mime_type = '';
 				$post->comment_count = 0;
 				$post->page_template = '';
@@ -71,13 +68,28 @@ if (!class_exists('SowprogEventsVirtualPage'))
 				$posts = array($post);
 
 				// reset wp_query properties to simulate a found page
-				$wp_query->is_page = TRUE;
-				$wp_query->is_home = FALSE;
-				$wp_query->is_archive = FALSE;
-				$wp_query->is_category = FALSE;
-				unset($wp_query->query['error']);
-				$wp_query->query_vars['error'] = '';
-				$wp_query->is_404 = FALSE;
+				if ($sowprogEventsConfiguration->getShowAsPage()) {
+					$wp_query->init();
+					$post->post_type = 'page';
+					$wp_query->is_page = TRUE;
+					$wp_query->is_home = FALSE;
+					$wp_query->is_archive = FALSE;
+					$wp_query->is_category = FALSE;
+					unset($wp_query->query['error']);
+					$wp_query->query_vars['error'] = '';
+					$wp_query->is_404 = FALSE;
+				} else {
+					$post->post_type = 'post';
+					$wp_query->is_page = FALSE;
+					$wp_query->is_single = TRUE;
+					$wp_query->is_singular = TRUE;
+					$wp_query->is_home = FALSE;
+					$wp_query->is_archive = FALSE;
+					$wp_query->is_category = FALSE;
+					unset($wp_query->query['error']);
+					$wp_query->query_vars['error'] = '';
+					$wp_query->is_404 = FALSE;
+				}
 			}
 
 			return ($posts);

@@ -29,7 +29,9 @@ class SowprogEventsOutput {
 		if (!empty($query['swc_location']) || !empty($query['swc_event'])) {
 			wp_enqueue_script('google-maps', 'https://maps.googleapis.com/maps/api/js?sensor=false');
 		}
-		wp_enqueue_style('font-awesome', plugins_url( '/includes/css/font-awesome.min.css' , __FILE__ ));
+		if (!$sowprogEventsConfiguration->getDoNotUseFontAwesome()) {
+			wp_enqueue_style('font-awesome', plugins_url( '/includes/css/font-awesome.min.css' , __FILE__ ));
+		}
 		wp_enqueue_style('sowprog-events-style', plugins_url( '/includes/css/sowprog_basic_widget.css' , __FILE__ ));
 
 		ob_start();
@@ -118,11 +120,13 @@ class SowprogEventsOutput {
 	}
 
 	function output_widget_javascript($count) {
-		wp_enqueue_style('font-awesome', plugins_url( '/includes/css/font-awesome.min.css' , __FILE__ ));
+		$sowprogEventsConfiguration = new SowprogEventsConfiguration();
+		if (!$sowprogEventsConfiguration->getDoNotUseFontAwesome()) {
+			wp_enqueue_style('font-awesome', plugins_url( '/includes/css/font-awesome.min.css' , __FILE__ ));
+		}
 		wp_enqueue_style('sowprog-events-style', plugins_url( '/includes/css/sowprog_basic_widget.css' , __FILE__ ));
 
 		wp_enqueue_script('sowprog_events_widget', plugins_url( '/includes/js/sowprog_events_widget.js' , __FILE__ ), array( 'jquery'), false, true);
-		$sowprogEventsConfiguration = new SowprogEventsConfiguration();
 		wp_localize_script(
 			'sowprog_events_widget', 
 			'sowprog_events_widget_parameters', 
@@ -135,6 +139,7 @@ class SowprogEventsOutput {
 			) 
 		);
 		echo '<div id="swc_events_small_div"></div>';
+		echo $sowprogEventsConfiguration->getWidgetCode();
 	}
 
 	function output_widget($count) {
@@ -147,11 +152,13 @@ class SowprogEventsOutput {
 			return '';
 		}
 
-		wp_enqueue_style('font-awesome', plugins_url( '/includes/css/font-awesome.min.css' , __FILE__ ));
+		if (!$sowprogEventsConfiguration->getDoNotUseFontAwesome()) {
+			wp_enqueue_style('font-awesome', plugins_url( '/includes/css/font-awesome.min.css' , __FILE__ ));
+		}
 		wp_enqueue_style('sowprog-events-style', plugins_url( '/includes/css/sowprog_basic_widget.css' , __FILE__ ));
 
 		ob_start();
-
+		
 		$widget_base_url = $sowprogEventsConfiguration->getSowprogAPIBaseURL() . '/v1';
 		$widget_type='oembed';
 		$widget_template='basic';
@@ -173,6 +180,8 @@ class SowprogEventsOutput {
 <?php 	
 echo $swc_data[html];
 		}
+		
+		echo $sowprogEventsConfiguration->getWidgetCode();
 
 		return ob_get_clean();
 	}

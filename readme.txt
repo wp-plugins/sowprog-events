@@ -3,7 +3,7 @@ Contributors: A31V
 Tags: events, sowprog
 Requires at least: 3.4
 Tested up to: 4.1
-Stable tag: 0.2
+Stable tag: 0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,10 @@ Here you will be able to configure your Sowprog account and on which page to dis
 <a href="mailto:contact@sowprog.com">Contact us</a> or <a href="https://pro.sowprog.com/signup?role=agenda" >create an Agenda account</a> on Sowprog. 
 
 == Changelog ==
+
+= 0.3 =
+
+You can now add custom html/css/javascript to the widget, choose to exclude fontAwsome and choose to display as a post or a page.
 
 = 0.2 = 
 

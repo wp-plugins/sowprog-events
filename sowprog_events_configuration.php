@@ -42,6 +42,29 @@ class SowprogEventsConfiguration {
 		update_option('sowprog_code_after', $codeAfter);
 	}
 	
+	function getWidgetCode() {
+		return stripcslashes(get_option('sowprog_widget_code'));
+	}
+	
+	function setWidgetCode($widgetCode) {
+		update_option('sowprog_widget_code', $widgetCode);
+	}
+	
+	function getDoNotUseFontAwesome() {
+		return get_option('sowprog_do_not_use_font_awesome');
+	}
+	
+	function setDoNotUseFontAwesome($doNotUseFontAwesome) {
+		update_option('sowprog_do_not_use_font_awesome', $doNotUseFontAwesome);
+	}
+	
+	function getShowAsPage() {
+		return get_option('sowprog_show_as_page');
+	}
+	
+	function setShowAsPage($showAsPage) {
+		update_option('sowprog_show_as_page', $showAsPage);
+	}
 	
 	function getAgendaPage() {
 		return get_option('sowprog_agenda_page');
@@ -71,11 +94,15 @@ class SowprogEventsConfiguration {
 	}
 	
 
-	function initialize($userEMail, $agendaPage, $codeBefore, $codeAfter) {
+	function initialize($userEMail, $agendaPage, $codeBefore, $codeAfter, $widgetCode, $doNotUseFontAwesome, $showAsPage) {
 		$this->setUserEmail($userEMail);
 		$this->setAgendaPage($agendaPage);
 		$this->setCodeBefore($codeBefore);
 		$this->setCodeAfter($codeAfter);
+		$this->setWidgetCode($widgetCode);
+		$this->setDoNotUseFontAwesome($doNotUseFontAwesome);
+		$this->setShowAsPage($showAsPage);
+		
 		
 		$url = $this->getSowprogAPIBaseURL() . '/rest/v1/user/account?user_email=' . $userEMail;
 		$headers = array(
@@ -133,7 +160,15 @@ class SowprogEventsConfiguration {
 	function form() {
 
 		if ('POST' == $_SERVER['REQUEST_METHOD']) {
-			$this->initialize($_POST['sowprog_user_email'], $_POST['sowprog_agenda_page'], $_POST['sowprog_code_before'], $_POST['sowprog_code_after']);
+			$this->initialize(
+					$_POST['sowprog_user_email'], 
+					$_POST['sowprog_agenda_page'], 
+					$_POST['sowprog_code_before'], 
+					$_POST['sowprog_code_after'],
+					$_POST['sowprog_widget_code'],
+					$_POST['sowprog_do_not_use_font_awesome'],
+					$_POST['sowprog_show_as_page']
+				);
 		}
 		?>
 <div class="wrap">
@@ -151,6 +186,12 @@ class SowprogEventsConfiguration {
 				<input name="sowprog_agenda_page" id="sowprog_agenda_page" value="<?php echo $this->getAgendaPage() ?>" />
 			</p>
 			<p>
+				<input type="checkbox" name="sowprog_do_not_use_font_awesome" value="1" <?php if ($this->getDoNotUseFontAwesome()) { ?> checked="checked" <?php } ?>>&nbsp;Ne pas inclure Font Awesome. Cochez cette case uniquement si votre thème inclus déjà Font Awesome<br>
+			</p>
+			<p>
+				<input type="checkbox" name="sowprog_show_as_page" value="1" <?php if ($this->getShowAsPage()) { ?> checked="checked" <?php } ?>>&nbsp;Afficher comme une page et non un post.<br>
+			</p>
+			<p>
 				<label for="sowprog_code_before">HTML / CSS / JS à placer avant</label>
 				<br>
 				<textarea rows="10" cols="50" name="sowprog_code_before" id="sowprog_code_before">
@@ -162,6 +203,13 @@ class SowprogEventsConfiguration {
 				<br>
 				<textarea rows="10" cols="50" name=sowprog_code_after id="sowprog_code_after">
 					<?php echo $this->getCodeAfter() ?>
+				</textarea>
+			</p>
+			<p>
+				<label for="sowprog_widget_code">HTML / CSS / JS à placer après le Widget</label>
+				<br>
+				<textarea rows="10" cols="50" name=sowprog_widget_code id="sowprog_widget_code">
+					<?php echo $this->getWidgetCode() ?>
 				</textarea>
 			</p>
 		</fieldset>
